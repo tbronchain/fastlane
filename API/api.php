@@ -31,6 +31,8 @@ function sendMail($emailAddress, $subject, $content) {
 }
 
 function addQueue($request) {
+  var_dump($request);
+
   $qr_code = $request['qr_code'];
   $last_name = $request['last_name'];
   $first_name = $request['first_name'];
@@ -106,35 +108,35 @@ case "add_queue":
   // Action: Add client in queue / Get nothing
   // Req: Client -> Server
   // Res: None
-  addQueue($_REQUEST);
+  addQueue(json_decode($_REQUEST['data'], true));
   break;
 case "get_position":
   // POST
   // Action: Ask position / Get position + time + status in queue
   // Req: Client -> Server
   // Res: Server -> Client
-  getPosition($_REQUEST);
+  getPosition(json_decode($_REQUEST['data'], true));
   break;
 case "validate_client":
   // POST
   // Action: Validate client / Get nothing
   // Req: Cashier -> Server
   // Res: None
-  validateClient($_REQUEST);
+  validateClient(json_decode($_REQUEST['data'], true));
   break;
 case "rate":
   // POST
   // Action: Rate queue / Get nothing
   // Req: Client -> Server
   // Res: None
-  rate($_REQUEST);
+  rate(json_decode($_REQUEST['data'], true));
   break;
 case "get_list":
   // GET
   // Action: Ask queue / Get queue
   // Req: Cashier -> Server
   // Res: Server -> Cashier
-  getList($_REQUEST);
+  getList(json_decode($_REQUEST['data'], true));
   break;
 }
 
