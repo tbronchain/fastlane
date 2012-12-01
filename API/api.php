@@ -37,8 +37,23 @@ function addQueue($request) {
   $phone_number = $request['phone_number'];
   $email = $request['email'];
 
-  addUser($qr_code, $last_name, $first_name, $phone_number, $email);
+  do_query("insert", "INSERT INTO queue VALUES ('.$qr_code.', '.$phone_number.', '.$email.', '.$first_name.', '.$last_name.', '0','.time().', 'true', 'na', 'na');");
+	$array = do_query("select", "select * from queue;");
+	$key = array_search($phone_number, $array);
+	$key++;
+	$time = $key * 5;
+	$text = "Hello ".$first_name.". You are in position ".$key.". You have ".$time."min to wait.";
+	require('Twilio.php');
 
+	$sid = "AC414d5a114ab94591b59933f2efebdd3a"; // Your Account SID from www.twilio.com/user/account
+	$token = "cfa5251dd317d9a28a74f1d11430b575"; // Your Auth Token from www.twilio.com/user/account
+
+	$client = new Services_Twilio($sid, $token);
+	$message = $client->account->sms_messages->create(
+	  '+16507310469', // From a valid Twilio number
+	  '+33672332439', // Text this number
+	  $text
+	);	
   // response
   // none
 }
@@ -46,16 +61,14 @@ function addQueue($request) {
 function getPosition($request) {
   $phone_number = $request['phone_number'];
 
-  $status = getFieldOfUser("status", $phone_number);
-  $position = getFieldOfUser("position", $phone_number);
-  $time = getTime($position);
-
+	$array = do_query("select", "select * from queue;");
+	$key = array_search($phone_number, $array);
+	$key++;
   // response
   $response =
     array(
-          'place' => $position,
-          'estimated_time' => $time,
-          'status' => $status
+          'place' => $key,
+          'estimated_time' => $key*5,
           );
   echo json_encode($response);
 }
@@ -63,8 +76,7 @@ function getPosition($request) {
 function validateClient() {
   $phone_number = $request['phone_number'];
 
-  setFieldOfUser("status", "0", $phone_number);
-  decreaseAllUsers($phone_number);
+  do_query("update", "UPDATE queue SET status='false' WHERE phone='.$phone_number.';");
 
   // reponse
   // none
@@ -78,23 +90,17 @@ function rate($request) {
   $rate = $request['rate'];
   // base64
   $picture = $request['picture'];
+  $review = $request['review'];
 
-  setFieldOfUser("rate", $rate, $phone_number);
-  $emailAddress = getFieldOfUser("email", $phone_number);
-  $subject = 'mail subject';
-  $content = 'mail content';
 
-  sendMail($emailAddress, $subject, $content);
+  do_query("update", "UPDATE queue SET review='.$review.', rate='.$rate.', picture='.$picture.' WHERE phone='.$phone_number.';");
 
   // reponse
   // none
 }
 
 function getList() {
-  $list = getGlobalList();
-
-  // response
-  $response = $list;
+  $response = do_query("select", "select * from queue;");
   echo json_encode($response);
 }
 
@@ -102,38 +108,18 @@ $mode = $_REQUEST['mode'];
 
 switch ($mode) {
 case "add_queue":
-  // POST
-  // Action: Add client in queue / Get nothing
-  // Req: Client -> Server
-  // Res: None
   addQueue($_REQUEST);
   break;
 case "get_position":
-  // POST
-  // Action: Ask position / Get position + time + status in queue
-  // Req: Client -> Server
-  // Res: Server -> Client
   getPosition($_REQUEST);
   break;
 case "validate_client":
-  // POST
-  // Action: Validate client / Get nothing
-  // Req: Cashier -> Server
-  // Res: None
   validateClient($_REQUEST);
   break;
 case "rate":
-  // POST
-  // Action: Rate queue / Get nothing
-  // Req: Client -> Server
-  // Res: None
   rate($_REQUEST);
   break;
 case "get_list":
-  // GET
-  // Action: Ask queue / Get queue
-  // Req: Cashier -> Server
-  // Res: Server -> Cashier
   getList($_REQUEST);
   break;
 }
