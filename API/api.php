@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Authorization");
-
+error_reporting(0);
 require_once 'db.php';
 
 function do_query ($type,$query) {
@@ -82,6 +82,14 @@ function addQueue($request) {
 	  '+33672332439', // Text this number
 	  $text
 	);	
+	
+	include_once('php-mailjet.class-mailjet-0.1.php');
+	$mj = new Mailjet();
+	$params = array(
+	    'method' => 'POST',
+	    'contact' => $email,
+	    'id' => '127955'
+	);
   // response
   // none
 }
@@ -123,7 +131,6 @@ function rate($request) {
   // base64
   $picture = $request['picture'];
   $review = $request['review'];
-
 
   do_query("update", "UPDATE queue SET review='".$review."', rate='".$rate."', picture='".$picture."' WHERE phone='".$phone_number."';");
 
