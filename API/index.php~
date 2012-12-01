@@ -1,7 +1,7 @@
 <?php
-include 'db.php';
+require_once 'db.php'
 
-/*function do_query ($query) {
+function do_query ($query) {
 	global $db;
 	if ($db) {
 		$qry = $db->prepare($query);
@@ -21,5 +21,5 @@ include 'db.php';
     review    varchar(500),
     picture    varchar(500)
 );*/
-/*do_query("INSERT INTO queue VALUES ('qrcode', '0672332439', 'theo.negri@epitech.eu', 'theo', 'negri', '0','12345890', '1', 'test', 'toto.jpg')");*/
+do_query("INSERT INTO queue VALUES ('qrcode', '0672332439', 'theo.negri@epitech.eu', 'theo', 'negri', '0','12345890', '1', 'test', 'toto.jpg')");
 ?>

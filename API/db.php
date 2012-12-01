@@ -1,7 +1,13 @@
 <?php
 
-require_once 'configDB.php';
+try {
+  $db = new PDO("pgsql:host=localhost;dbname=waiste", "theonegri", "");
+}
+catch(PDOException $e) {
+  $db = null;
+  echo 'ERREUR DB: ' . $e->getMessage();
+}
+ 
 
-$connect = new PDO('mysql:host='.$PARAMDB_host.';port='.$PARAMDB_port.';dbname='.$PARAMDB_DB, $PARAMDB_user, $PARAMDB_pass);
 
 ?>
