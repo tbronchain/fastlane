@@ -1,4 +1,32 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+header("Access-Control-Allow-Headers: Authorization");
+
+require_once 'db.php';
+
+function do_query ($type,$query) {
+	global $db;
+	if ($db) {
+		if ($type == "select"){
+			$qry = $db->query($query);
+
+			$noms = $qry->fetchAll(PDO::FETCH_ASSOC);
+			return($noms);
+		}
+		if ($type == 'insert') {
+			echo $query;
+			$db->query($query) or die(print_r($db->errorInfo(), true));
+			//var_dump($qry);
+		}
+		if ($type == 'update') {
+			echo $query;
+			$db->query($query) or die(print_r($db->errorInfo(), true));
+			//var_dump($qry);
+		}
+
+	}
+}
 
 function getTime($position) {
   $unitTime = 5;
@@ -37,7 +65,7 @@ function addQueue($request) {
   $phone_number = $request['phone_number'];
   $email = $request['email'];
 
-  do_query("insert", "INSERT INTO queue VALUES ('.$phone_number.', '.$qr_code.', '.$email.', '.$first_name.', '.$last_name.', '0','.time().', 'true', 'na', 'na');");
+  do_query("insert", "INSERT INTO queue VALUES ('".$phone_number."', '".$qr_code."', '".$email."', '".$first_name."', '".$last_name."', '0','".time()."', 'true', 'na', 'na');");
 
   $array = do_query("select", "select * from queue;");
   $key = array_search($phone_number, $array);
@@ -63,10 +91,11 @@ function addQueue($request) {
 
 function getPosition($request) {
   $phone_number = $request['phone_number'];
+  $phone_number = substr($phone_number,1);
 
   $array = do_query("select", "select * from queue;");
   $key = array_search($phone_number, $array);
-  $key++;
+  $key = 6;
 
   // response
   $response =
@@ -80,7 +109,7 @@ function getPosition($request) {
 function validateClient() {
   $phone_number = $request['phone_number'];
 
-  do_query("update", "UPDATE queue SET status='false' WHERE phone='.$phone_number.';");
+  do_query("update", "UPDATE queue SET status='false' WHERE phone='".$phone_number."';");
 
   // reponse
   // none
@@ -97,7 +126,7 @@ function rate($request) {
   $review = $request['review'];
 
 
-  do_query("update", "UPDATE queue SET review='.$review.', rate='.$rate.', picture='.$picture.' WHERE phone='.$phone_number.';");
+  do_query("update", "UPDATE queue SET review='".$review."', rate='".$rate."', picture='".$picture."' WHERE phone='".$phone_number."';");
 
   // reponse
   // none
@@ -110,23 +139,29 @@ function getList() {
   echo json_encode($response);
 }
 
+//$a = var_export($_REQUEST);
+//file_put_contents('./test.txt', $a);
+
 $mode = $_REQUEST['mode'];
+$data = $_REQUEST['data'];
+$data = str_replace("\\", "", $data);
+$data = json_decode($data, true);
 
 switch ($mode) {
 case "add_queue":
-  addQueue($_REQUEST);
+  addQueue($data);
   break;
 case "get_position":
-  getPosition($_REQUEST);
+  getPosition($data);
   break;
 case "validate_client":
-  validateClient($_REQUEST);
+  validateClient($data);
   break;
 case "rate":
-  rate($_REQUEST);
+  rate($data);
   break;
 case "get_list":
-  getList($_REQUEST);
+  getList($data);
   break;
 }
 
