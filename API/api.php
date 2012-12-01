@@ -37,23 +37,26 @@ function addQueue($request) {
   $phone_number = $request['phone_number'];
   $email = $request['email'];
 
-  do_query("insert", "INSERT INTO queue VALUES ('.$qr_code.', '.$phone_number.', '.$email.', '.$first_name.', '.$last_name.', '0','.time().', 'true', 'na', 'na');");
-	$array = do_query("select", "select * from queue;");
-	$key = array_search($phone_number, $array);
-	$key++;
-	$time = $key * 5;
-	$text = "Hello ".$first_name.". You are in position ".$key.". You have ".$time."min to wait.";
-	require('Twilio.php');
+  do_query("insert", "INSERT INTO queue VALUES ('.$phone_number.', '.$qr_code.', '.$email.', '.$first_name.', '.$last_name.', '0','.time().', 'true', 'na', 'na');");
 
-	$sid = "AC414d5a114ab94591b59933f2efebdd3a"; // Your Account SID from www.twilio.com/user/account
-	$token = "cfa5251dd317d9a28a74f1d11430b575"; // Your Auth Token from www.twilio.com/user/account
+  $array = do_query("select", "select * from queue;");
+  $key = array_search($phone_number, $array);
+  $key++;
+  $time = getTime($key);
+  $text = "Hello ".$first_name.". You are in position ".$key.". You have ".$time."min to wait.";
 
-	$client = new Services_Twilio($sid, $token);
-	$message = $client->account->sms_messages->create(
-	  '+16507310469', // From a valid Twilio number
-	  '+33672332439', // Text this number
-	  $text
-	);	
+  require('Twilio.php');
+  // Your Account SID from www.twilio.com/user/account
+  $sid = "AC414d5a114ab94591b59933f2efebdd3a";
+  // Your Auth Token from www.twilio.com/user/account
+  $token = "cfa5251dd317d9a28a74f1d11430b575";
+
+  $client = new Services_Twilio($sid, $token);
+  $message =
+    $client->account->sms_messages->create('+16507310469', // From a valid Twilio number
+                                           '+33672332439', // Text this number
+                                           $text);
+
   // response
   // none
 }
@@ -61,14 +64,15 @@ function addQueue($request) {
 function getPosition($request) {
   $phone_number = $request['phone_number'];
 
-	$array = do_query("select", "select * from queue;");
-	$key = array_search($phone_number, $array);
-	$key++;
+  $array = do_query("select", "select * from queue;");
+  $key = array_search($phone_number, $array);
+  $key++;
+
   // response
   $response =
     array(
           'place' => $key,
-          'estimated_time' => $key*5,
+          'estimated_time' => getTime($key),
           );
   echo json_encode($response);
 }
@@ -101,6 +105,8 @@ function rate($request) {
 
 function getList() {
   $response = do_query("select", "select * from queue;");
+  file_put_contents($response, "/tmp/response.query");
+  file_put_contents(json_encode($response), "/tmp/response.json");
   echo json_encode($response);
 }
 
@@ -124,8 +130,4 @@ case "get_list":
   break;
 }
 
-/*
-BACKEND:
-Send SMS (Twilio)
-*/
 ?>

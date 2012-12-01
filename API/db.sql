@@ -1,12 +1,12 @@
 CREATE TABLE queue (
-    qrcode       varchar(200) NOT NULL,
-    phone         integer NOT NULL,
-    email   varchar(200),
-    firstname        varchar(200) NOT NULL,
-    lastname         varchar(200) NOT NULL,
-    rate         integer,
-    time         integer NOT NULL,
-    status     boolean,
-    review    varchar(500),
-    picture    varchar(500)
+    phone_number  integer NOT NULL,
+    qr_code       varchar(200) NOT NULL,
+    email         varchar(200),
+    first_name    varchar(200) NOT NULL,
+    last_name     varchar(200) NOT NULL,
+    rate          integer,
+    time          integer NOT NULL,
+    status        boolean,
+    review        varchar(500),
+    picture       varchar(500)
 );
