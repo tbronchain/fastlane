@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link media="screen" rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css">
-	<link media="screen" rel="stylesheet" type="text/css" href="/assets/nowaist.css">
+	<link media="screen" rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.min.css">
+	<link media="screen" rel="stylesheet" type="text/css" href="./assets/nowaist.css">
 	    	
-    <script type="text/javascript" src="assets/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/jquery-ui/js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script type="text/javascript" src="assets/nowaist.js"></script>
+    <script type="text/javascript" src="./assets/jquery.min.js"></script>
+    <script type="text/javascript" src="./assets/jquery-ui/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="./assets/nowaist.js"></script>
     
     <meta http-equiv="content-type" content="text/php; charset=utf-8" />
 
-    <title>No Waist !</title>
+    <title>Smart Line</title>
 </head>
 
 <body>
+	<div class="container">
+		<div class="row">
+			<div class="logo"></div>
+        </div>
+	</div> 
     <div class="container">
         <div class="row list_content">
-				
-        </div>
-    </div>
-	<div class="container">
-        <div class="row">
-        	<div class="span4 offset4 footer">
-        		<span>Copyright - 2012</span>
-        	</div>
+
         </div>
     </div>
     

@@ -1,12 +1,21 @@
 body {
 	font-size: 18px;
-	background: url('/assets/creampaper.png') repeat;
+	background: url('./assets/creampaper.png') repeat;
 	/*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;*/
 	color: #317EAC;
 }
 
+.logo {
+	height: 101px;
+	width: 424px;
+	background: url('./assets/logo.png');
+	margin-top: 20px;
+	margin-left: 239px;
+}
+
 .list_content {
 	margin-top: 30px;
+	position: relative;
 }
 
 .footer {
@@ -78,6 +87,10 @@ body {
 	.ticket_content .queue {
 		width: 250px;
 	}	
+		
+		.ticket_content .queue .estimated_time {
+			color: #033C73;
+		}
 	
 		.ticket_content .queue .number {
 			width: 70px;
