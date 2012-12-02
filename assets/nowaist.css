@@ -1,0 +1,129 @@
+body {
+	font-size: 18px;
+	background: url('/assets/creampaper.png') repeat;
+	/*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;*/
+	color: #317EAC;
+}
+
+.list_content {
+	margin-top: 30px;
+}
+
+.footer {
+	height: 100px;
+	padding-top: 100px;
+}
+
+	.footer span {
+		color: #ccc;
+		margin-left: 100px;
+	}
+
+.desc {
+	font-size: 13px;
+}
+
+.template {
+	display: none;
+}
+
+.ticket {
+	margin-bottom: 10px;
+}
+
+	.ticket_pos {
+		height: 120px;
+	}
+
+	.ticket_content {
+		height: 80px;
+	}
+	
+	.pop_validate a {
+		height: 66px;
+	}
+	
+.line {
+	margin-top: 10px;
+}
+
+.estimate {
+	margin-top: 30px;
+}
+
+.time_since_queue {
+	margin-top: 60px;
+}
+
+.ticket_content {
+	margin-left: 10px;
+	background: #F5F5F5;
+	padding: 20px;
+	width: 586px;
+	font-family: "Times New Roman", Times, serif;
+}
+	
+	.ticket_content .informations {
+		width: 316px;
+		
+	}
+	
+		.ticket_content .informations .name > div,
+		.ticket_content .queue .time > div,
+		.ticket_content .estimate .time > div,
+		.ticket_content .time_since_queue .time > div {
+			display: inline-block;
+		}
+	
+	.ticket_content .queue {
+		width: 250px;
+	}	
+	
+		.ticket_content .queue .number {
+			width: 70px;
+		}
+	
+			.ticket_content .queue > div > div {
+				float: right;
+				margin-left: 10px;
+			}
+			
+				.ticket_content .queue .time > div .time_to_go {
+					
+				}
+
+
+.ticket_pos {
+	background-image: linear-gradient(to bottom, #04498C, #033C73);
+	color: #fff;
+}
+
+	.position {
+		text-shadow: 0px 1px 0px #fff;
+		font-size: 70px;
+		margin: 48px 0 0 52px;
+	}
+	
+	.ticket_content, .pop_validate {
+		border: 1px solid #A9B4BA;
+		box-shadow: 0 0 4px #A9B4BA;
+		position: relative;
+	}
+	
+	.ticket_content:hover, .pop_validate:hover {
+		border: 1px solid #949CA1;
+		box-shadow: 0 0 10px #949CA1;
+	}
+
+.pop_validate {
+	position: absolute;
+	left: 626px;
+	top: -2px;
+	border-radius: 0 4px 4px 0;
+	display: none;
+}
+
+	.pop_validate a {
+		padding-top: 50px;
+		border-radius: 0 4px 4px 0;
+	}
