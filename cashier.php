@@ -1,42 +1,94 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link media="screen" rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css">
+	<link media="screen" rel="stylesheet" type="text/css" href="/assets/nowaist.css">
+	    	
+    <script type="text/javascript" src="assets/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/jquery-ui/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="assets/nowaist.js"></script>
+    
+    <meta http-equiv="content-type" content="text/php; charset=utf-8" />
 
-<html>
-    <head>
-        <rel="stylesheet" type="text/css" href="css/main.css" />
-        <meta http-equiv="content-type" content="text/php; charset=utf-8" />
+    <title>No Waist !</title>
+</head>
 
-        <title>No Waist !</title>
-    </head>
-
-    <body>
-        <div class="Container">
-            <div class="Header">
-
-            </div>
-
-            <div class="Menu">
-                <ul id="nav"> 
-                    <li>menu item</li>  
-                    <li>menu item</li> 
-                    <li>menu item</li>  
-                    <li>menu item</li> 
-                    <li>menu item</li>  
-                    <li>menu item</li> 
-                </ul> 
-            </div>
-
-            <div class="Body">
-
-            </div>
+<body>
+    <div class="container">
+        <div class="row list_content">
+				
         </div>
-
-    </body>
-
-    <footer>
-        <div class="Footer">
-            <b>Copyright - 2012</b>
+    </div>
+	<div class="container">
+        <div class="row">
+        	<div class="span4 offset4 footer">
+        		<span>Copyright - 2012</span>
+        	</div>
         </div>
-    </footer>
+    </div>
+    
+    <div class="template">
+	    <div class="span10 offset1 ticket">
+			<div class="row">
+				<div class="ticket_pos span2">
+					<div class="position">
+						
+					</div>
+				</div>
+				<div class="ticket_content span8">
+					<div class="row">
+						<div class="informations span6">
+							<div class="name">
+								<div class="first_name">
+									
+								</div>
+								<div class="last_name">
+									
+								</div>
+							</div>
+							<div class="line phone_number">
+								
+							</div>
+							<div class="line email">
+								
+							</div>
+						</div>
+						<div class="queue span2">
+							<div class="time">
+								<div class="number estimated_time">
+									
+								</div>
+								<div class="desc">
+									Estimated waiting time :
+								</div>
+							</div>
+							<div class="estimate">
+								<div class="number time_to_go">
+									
+								</div>
+								<div class="desc">
+									Estimated time :
+								</div>
+							</div>
+							<div class="time_since_queue">
+								<div class="number waited_time">
+									
+								</div>
+								<div class="desc">
+									Time spent in queue :
+								</div>
+							</div>
+						</div>
+						<div class="pop_validate">
+							<a class="btn btn-success">
+								Validate
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+</body>
 </html>
