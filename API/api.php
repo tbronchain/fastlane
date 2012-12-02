@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Authorization");
-error_reporting(0);
+//error_reporting(0);
 
 require_once 'db.php';
 
@@ -219,7 +219,7 @@ case "qwertyuiop":
   del($data);
   break;
 case "sendsms":
-  del($data);
+  send($data);
   break
 }
 
