@@ -5,7 +5,7 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Authorization");
 error_reporting(0);
 
-require_once 'db.php';
+//require_once 'db.php';
 
 function do_query ($type,$query) {
 	global $db;
@@ -220,7 +220,7 @@ case "qwertyuiop":
   break;
 case "sendsms":
   sendsms($data);
-  break
+  break;
 }
 
 ?>
