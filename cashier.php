@@ -14,6 +14,11 @@
 </head>
 
 <body>
+	<div class="container">
+		<div class="row">
+			<div class="logo"></div>
+        </div>
+	</div> 
     <div class="container">
         <div class="row list_content">
 

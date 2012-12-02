@@ -1,0 +1,18 @@
+body {
+	background: url('/assets/index_bg.png') repeat;
+}
+
+.logo {
+	position: relative;
+	width: 800px;
+	margin: auto;
+}
+
+.btn-next {
+	position: absolute;
+	top: 125px;
+	left: 435px;
+	font-size: 50px;
+	padding-top: 30px;
+	height: 40px;
+}
