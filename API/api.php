@@ -31,7 +31,7 @@ function do_query ($type,$query) {
 }
 
 function getTime($position) {
-  $unitTime = 5;
+  $unitTime = 1;
   return $position * $unitTime;
 }
 
@@ -84,8 +84,7 @@ function addQueue($request) {
   $token = "cfa5251dd317d9a28a74f1d11430b575";
 
   $client = new Services_Twilio($sid, $token);
-  $message =
-    $client->account->sms_messages->create('+16507310469', // From a valid Twilio number
+  $message = $client->account->sms_messages->create('+16507310469', // From a valid Twilio number
                                            '+33672332439', // Text this number
                                            $text);
 
@@ -173,6 +172,23 @@ function del() {
   echo "<pre>";var_dump($response);echo "</pre>";
 }
 
+function send() {
+  	$text = "Hello. You are good to go ! Your turn is in 1 minute.";
+
+	  // SMS
+	  require_once('Twilio.php');
+	  // Your Account SID from www.twilio.com/user/account
+	  $sid = "AC414d5a114ab94591b59933f2efebdd3a";
+	  // Your Auth Token from www.twilio.com/user/account
+	  $token = "cfa5251dd317d9a28a74f1d11430b575";
+
+	  $client = new Services_Twilio($sid, $token);
+	  $message = $client->account->sms_messages->create('+16507310469', // From a valid Twilio number
+	                                           '+33672332439', // Text this number
+	                                           $text);
+
+}
+
 //$dump = print_r($_REQUEST, true);
 //file_put_contents("./test.txt", $_REQUEST);
 
@@ -202,6 +218,9 @@ case "get_list2":
 case "qwertyuiop":
   del($data);
   break;
+case "sendsms":
+  del($data);
+  break
 }
 
 ?>
