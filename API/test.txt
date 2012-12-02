@@ -1,0 +1,1 @@
+add_queue{\"qr_code\":\"monQRcode\",\"last_name\":\"Eric\",\"first_name\":\"Eric\",\"phone_number\":\"0629140050\",\"email\":\"eric.khun

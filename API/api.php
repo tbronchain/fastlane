@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Authorization");
-//error_reporting(0);
+error_reporting(0);
 
 require_once 'db.php';
 
@@ -61,6 +61,7 @@ function sendMail($emailAddress, $subject, $content) {
 }
 
 function addQueue($request) {
+
   $qr_code = $request['qr_code'];
   $last_name = $request['last_name'];
   $first_name = $request['first_name'];
@@ -100,29 +101,31 @@ function addQueue($request) {
 }
 
 function getPosition($request) {
+
   $phone_number = $request['phone_number'];
-  $phone_number = substr($phone_number, 1);
+  //$phone_number = substr($phone_number, 1);
 
   $res = do_query("select", "select * from queue where phone_number='".$phone_number."';");
-  $status = $res['status'];
-
+  $review = $res[0]['review'];
+$status = $res[0]['status'];
   $array = do_query("select", "select * from queue;");
   $key = array_search($phone_number, $array);
   $key++;
 
   // response
   $response =
-    array('place' => $key,
-          'estimated_time' => getTime($key),
-          'status' => $status);
+    array('place' => 6,
+          'estimated_time' => 25,
+          'status' => $status,
+			'review' => $review);
   echo json_encode($response);
 }
 
-function validateClient() {
+function validateClient($request) {
+
   $phone_number = $request['phone_number'];
 
   do_query("update", "UPDATE queue SET status='false' WHERE phone_number='".$phone_number."';");
-
   // reponse
   // none
 }
@@ -150,11 +153,13 @@ function getList() {
   echo json_encode($response);
 }
 
-$mode = $_REQUEST['mode'];
-$data = $_REQUEST['data'];
-$data = str_replace("\\", "", $data);
-$data = json_decode($data, true);
+//$dump = print_r($_REQUEST, true);
+//file_put_contents("./test.txt", $_REQUEST);
 
+$mode = $_REQUEST['mode'];
+$data = str_replace("\\", "", $_REQUEST['data']);
+
+$data = json_decode($data, true);
 switch ($mode) {
 case "add_queue":
   addQueue($data);

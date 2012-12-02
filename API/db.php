@@ -1,7 +1,7 @@
 <?php
 
 try {
-  $db = new PDO("pgsql:host=localhost;dbname=nowaiste", "waiste_user2", "waiste_pass");
+  $db = new PDO("pgsql:host=localhost;dbname=waiste", "theonegri", "");
 }
 
 catch(PDOException $e) {
