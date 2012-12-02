@@ -65,8 +65,8 @@ $(document).ready(function(){
 	var i = 0;
 	var currentPos = 1;
 	var list = '';
-	var getListUrl = '/API/api.php?mode=get_list';
-	var validateClientUrl = '/API/api.php?mode=validate_client';
+	var getListUrl = './API/api.php?mode=get_list';
+	var validateClientUrl = './API/api.php?mode=validate_client';
 	$.ajax({
 		url: getListUrl,
 		success: function(data){
