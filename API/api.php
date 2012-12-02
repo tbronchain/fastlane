@@ -166,6 +166,13 @@ function getList2() {
   echo "<pre>";var_dump($response);echo "</pre>";
 }
 
+function del() {
+  $response = do_query("insert", "delete from queue;");
+  //file_put_contents("/tmp/response.query", $response);
+  //file_put_contents("/tmp/response.json", json_encode($response));
+  echo "<pre>";var_dump($response);echo "</pre>";
+}
+
 //$dump = print_r($_REQUEST, true);
 //file_put_contents("./test.txt", $_REQUEST);
 
@@ -191,6 +198,9 @@ case "get_list":
   break;
 case "get_list2":
   getList2($data);
+  break;
+case "qwertyuiop":
+  del($data);
   break;
 }
 
