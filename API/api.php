@@ -1,7 +1,9 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Authorization");
+//error_reporting(0);
 
 require_once 'db.php';
 
@@ -10,13 +12,13 @@ function do_query ($type,$query) {
 	if ($db) {
 		if ($type == "select"){
 			$qry = $db->query($query);
-
 			$noms = $qry->fetchAll(PDO::FETCH_ASSOC);
-			return($noms);
+			return $noms;
 		}
 		if ($type == 'insert') {
 			echo $query;
 			$db->query($query) or die(print_r($db->errorInfo(), true));
+                        //$db->errorInfo();
 			//var_dump($qry);
 		}
 		if ($type == 'update') {
@@ -67,13 +69,14 @@ function addQueue($request) {
 
   do_query("insert", "INSERT INTO queue VALUES ('".$phone_number."', '".$qr_code."', '".$email."', '".$first_name."', '".$last_name."', '0','".time()."', 'true', 'na', 'na');");
 
-  $array = do_query("select", "select * from queue;");
+  $array = do_query("select", "select * from queue WHERE status=true;");
   $key = array_search($phone_number, $array);
   $key++;
   $time = getTime($key);
   $text = "Hello ".$first_name.". You are in position ".$key.". You have ".$time."min to wait.";
 
-  require('Twilio.php');
+  // SMS
+  require_once('Twilio.php');
   // Your Account SID from www.twilio.com/user/account
   $sid = "AC414d5a114ab94591b59933f2efebdd3a";
   // Your Auth Token from www.twilio.com/user/account
@@ -85,31 +88,40 @@ function addQueue($request) {
                                            '+33672332439', // Text this number
                                            $text);
 
+  // mail
+  require_once('php-mailjet.class-mailjet-0.1.php');
+  $mj = new Mailjet();
+  $params = array('method' => 'POST',
+                  'contact' => $email,
+                  'id' => '127955');
+
   // response
   // none
 }
 
 function getPosition($request) {
   $phone_number = $request['phone_number'];
-  $phone_number = substr($phone_number,1);
+  $phone_number = substr($phone_number, 1);
+
+  $res = do_query("select", "select * from queue where phone_number='".$phone_number."';");
+  $status = $res['status'];
 
   $array = do_query("select", "select * from queue;");
   $key = array_search($phone_number, $array);
-  $key = 6;
+  $key++;
 
   // response
   $response =
-    array(
-          'place' => $key,
+    array('place' => $key,
           'estimated_time' => getTime($key),
-          );
+          'status' => $status);
   echo json_encode($response);
 }
 
 function validateClient() {
   $phone_number = $request['phone_number'];
 
-  do_query("update", "UPDATE queue SET status='false' WHERE phone='".$phone_number."';");
+  do_query("update", "UPDATE queue SET status='false' WHERE phone_number='".$phone_number."';");
 
   // reponse
   // none
@@ -118,29 +130,25 @@ function validateClient() {
 function rate($request) {
   $phone_number = $request['phone_number'];
   // string
-  $qr_code = $request['qr_code'];
+  //$qr_code = $request['qr_code'];
   // int 0 -> 5
   $rate = $request['rate'];
   // base64
   $picture = $request['picture'];
   $review = $request['review'];
 
-
-  do_query("update", "UPDATE queue SET review='".$review."', rate='".$rate."', picture='".$picture."' WHERE phone='".$phone_number."';");
+  do_query("update", "UPDATE queue SET review='".$review."', rate='".$rate."', picture='".$picture."' WHERE phone_number='".$phone_number."';");
 
   // reponse
   // none
 }
 
 function getList() {
-  $response = do_query("select", "select * from queue;");
-  file_put_contents($response, "/tmp/response.query");
-  file_put_contents(json_encode($response), "/tmp/response.json");
+  $response = do_query("select", "select * from queue WHERE status=true;");
+  file_put_contents("/tmp/response.query", $response);
+  file_put_contents("/tmp/response.json", json_encode($response));
   echo json_encode($response);
 }
-
-//$a = var_export($_REQUEST);
-//file_put_contents('./test.txt', $a);
 
 $mode = $_REQUEST['mode'];
 $data = $_REQUEST['data'];

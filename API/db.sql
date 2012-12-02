@@ -1,5 +1,5 @@
 CREATE TABLE queue (
-    phone_number  integer NOT NULL,
+    phone_number  varchar(20) NOT NULL,
     qr_code       varchar(200) NOT NULL,
     email         varchar(200),
     first_name    varchar(200) NOT NULL,
