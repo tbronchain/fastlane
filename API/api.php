@@ -94,7 +94,7 @@ function addQueue($request) {
   $params = array('method' => 'POST',
                   'contact' => $email,
                   'id' => '127955');
-
+  $response = $mj->listsAddContact($params);
   // response
   // none
 }
