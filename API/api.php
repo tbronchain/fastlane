@@ -109,13 +109,19 @@ function getPosition($request) {
   $review = $res[0]['review'];
 $status = $res[0]['status'];
   $array = do_query("select", "select * from queue;");
-  $key = array_search($phone_number, $array);
-  $key++;
+$i = 0;
+while($array[$i]['phone_number'] != null) {
+	if ($array[$i]['phone_number'] == $phone_number) {
+		break;
+	}
+	$i++;
+}
 
+$i++;
   // response
   $response =
-    array('place' => 6,
-          'estimated_time' => 25,
+    array('place' => $i,
+          'estimated_time' => getTime($i),
           'status' => $status,
 			'review' => $review);
   echo json_encode($response);
@@ -148,8 +154,8 @@ function rate($request) {
 
 function getList() {
   $response = do_query("select", "select * from queue WHERE status=true;");
-  file_put_contents("/tmp/response.query", $response);
-  file_put_contents("/tmp/response.json", json_encode($response));
+  //file_put_contents("/tmp/response.query", $response);
+  //file_put_contents("/tmp/response.json", json_encode($response));
   echo json_encode($response);
 }
 
