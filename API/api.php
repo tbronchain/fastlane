@@ -163,7 +163,7 @@ function getList2() {
   $response = do_query("select", "select * from queue;");
   //file_put_contents("/tmp/response.query", $response);
   //file_put_contents("/tmp/response.json", json_encode($response));
-  echo json_encode($response);
+  echo "<pre>";var_dump($response);echo "</pre>";
 }
 
 //$dump = print_r($_REQUEST, true);
