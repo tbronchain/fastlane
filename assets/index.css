@@ -1,5 +1,5 @@
 body {
-	background: url('/assets/index_bg.png') repeat;
+	background: url('./assets/index_bg.png') repeat;
 }
 
 .logo {

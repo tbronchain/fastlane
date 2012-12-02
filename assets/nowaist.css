@@ -1,6 +1,6 @@
 body {
 	font-size: 18px;
-	background: url('/assets/creampaper.png') repeat;
+	background: url('./assets/creampaper.png') repeat;
 	/*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;*/
 	color: #317EAC;
 }
@@ -8,7 +8,7 @@ body {
 .logo {
 	height: 101px;
 	width: 424px;
-	background: url('/assets/logo.png');
+	background: url('./assets/logo.png');
 	margin-top: 20px;
 	margin-left: 239px;
 }
