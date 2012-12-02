@@ -159,6 +159,13 @@ function getList() {
   echo json_encode($response);
 }
 
+function getList2() {
+  $response = do_query("select", "select * from queue;");
+  //file_put_contents("/tmp/response.query", $response);
+  //file_put_contents("/tmp/response.json", json_encode($response));
+  echo json_encode($response);
+}
+
 //$dump = print_r($_REQUEST, true);
 //file_put_contents("./test.txt", $_REQUEST);
 
@@ -181,6 +188,9 @@ case "rate":
   break;
 case "get_list":
   getList($data);
+  break;
+case "get_list2":
+  getList2($data);
   break;
 }
 
