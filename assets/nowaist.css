@@ -5,8 +5,26 @@ body {
 	color: #317EAC;
 }
 
+.bg_left, .bg_right {
+	height: 700px;
+	width: 150px;
+	position: absolute;
+	top: -20px;
+}
+
+	.bg_left {
+		left: -40px;
+		background: url('/assets/angel_bg.png');
+	}
+	
+	.bg_right {
+		left: 870px;
+		background: url('/assets/angel_bg_inv.png');
+	}
+
 .list_content {
 	margin-top: 30px;
+	position: relative;
 }
 
 .footer {
@@ -78,6 +96,10 @@ body {
 	.ticket_content .queue {
 		width: 250px;
 	}	
+		
+		.ticket_content .queue .estimated_time {
+			color: #033C73;
+		}
 	
 		.ticket_content .queue .number {
 			width: 70px;

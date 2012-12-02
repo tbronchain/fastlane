@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	function toHHMMSS(currentTimestamp) {
 	    var date = new Date();
-	    timestamp = date.getTime() - currentTimestamp;
+	    timestamp = parseInt(date.getTime()/1000) - currentTimestamp;
 	    
 		sec_numb    = parseInt(timestamp);
 	    var hours   = Math.floor(sec_numb / 3600);
@@ -52,19 +52,25 @@ $(document).ready(function(){
 		}
 	}
 	
+	function refreshEstimatedTime() {
+		var it = 1;
+		$('.ticket').each(function(){
+			$(this).find('.estimated_time').html((it * 5)+'mn');
+			it++;
+		});
+	}
 	
 	var template = $('.template');
 	var contentList = $('.list_content');
 	var i = 0;
 	var currentPos = 1;
 	var list = '';
-	var getListUrl = 'http://192.168.0.106/angelhack/shittyhub/API/api.php?mode=get_list';
-	var validateClientUrl = 'http://192.168.0.106/angelhack/shittyhub/API/api.php?mode=validate_client';
+	var getListUrl = 'http://192.168.0.101/angelhack/shittyhub/API/api.php?mode=get_list';
+	var validateClientUrl = 'http://192.168.0.101/angelhack/shittyhub/API/api.php?mode=validate_client';
 	$.ajax({
 		url: getListUrl,
 		success: function(data){
 			list = eval(data);
-			contentList.html('');
 			for (key in list) {
 				fillTemplate(key, false);
 				i++;
@@ -88,6 +94,7 @@ $(document).ready(function(){
 					if (i < j) {
 						fillTemplate(lastKey, true);
 						currentPos++;
+						refreshEstimatedTime()
 					}
 					i = j;
 				}
@@ -124,10 +131,18 @@ $(document).ready(function(){
 		var ticket = $(this).parents('.ticket');
 		var phoneNumber = ticket.find('.phone_number').html();
 		ticket.fadeOut('slow');
+		ticket.remove();
+		var data = {
+			phone_number: phoneNumber,
+			mode: ""
+		}
 		$.ajax({
-		url: validateClientUrl,
-			data: { phone_number: phoneNumber },
+			type: "POST",
+			url: validateClientUrl,
+			data: {data: JSON.stringify(data)},
+			dataType: "json"
 		});
+		refreshEstimatedTime();
 	});
 	
 });

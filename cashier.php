@@ -10,20 +10,13 @@
     
     <meta http-equiv="content-type" content="text/php; charset=utf-8" />
 
-    <title>No Waist !</title>
+    <title>Smart Line</title>
 </head>
 
 <body>
     <div class="container">
         <div class="row list_content">
-				
-        </div>
-    </div>
-	<div class="container">
-        <div class="row">
-        	<div class="span4 offset4 footer">
-        		<span>Copyright - 2012</span>
-        	</div>
+
         </div>
     </div>
     
